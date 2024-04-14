@@ -4,9 +4,15 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const {join, relative} = require("path");
 const serveIndex = require('serve-index');
+const {createServer} = require("https");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const options = {
+    key: fs.readFileSync('./privatekey.pem'),
+    cert: fs.readFileSync('./certificate.pem'),
+};
 
 // Директория, к которой нужно предоставить доступ
 const instancePath = join(__dirname, 'instance');
@@ -18,7 +24,7 @@ app.use(express.static(instancePath));
 app.use('/instance', express.static(instancePath), serveIndex(instancePath, {'icons': true}))
 
 
-const BASE_URL = "62.45.155.24:/instance/";
+const BASE_URL = "62.45.155.24:3000/instance/";
 
 // Парсим JSON из запросов
 app.use(bodyParser.json());
@@ -45,6 +51,19 @@ function saveUsers(users) {
         console.error("Error saving users:", error);
     }
 }
+
+
+app.get('/api/info', (req, res) => {
+    const info = [
+        {
+            "url": "62.45.155.24:3000/instance/Main/mods/Optifine.jar",
+            "size": 6539012,
+            "hash": "445a8cb8a1d565d8a1fabc0ba984c5936edbf561",
+            "path": "mods/Optifine.jar"
+        }
+    ];
+    res.json(info);
+});
 
 // Роут для аутентификации пользователя
 app.post('/api/auth/authenticate', (req, res) => {
@@ -146,6 +165,6 @@ function calculateFileHash(filePath) {
 }
 
 // Запуск сервера
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+const server = createServer(options, app).listen(PORT, function () {
+    console.log("Express server listening on port " + PORT);
 });
