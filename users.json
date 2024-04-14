@@ -1,0 +1,32 @@
+[
+  {
+    "email": "user1@example.com",
+    "password": "password1",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    "uuid": "1a2b3c4d5e6f",
+    "username": "user1",
+    "banned": false,
+    "money": 1000,
+    "role": "user"
+  },
+  {
+    "email": "user2@example.com",
+    "password": "password2",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    "uuid": "6f5e4d3c2b1a",
+    "username": "user2",
+    "banned": false,
+    "money": 500,
+    "role": "admin"
+  },
+  {
+    "email": "saintedlittle@example.com",
+    "password": "'kl;tqrfK",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    "uuid": "7g8h9i0j1k2l",
+    "username": "saintedlittle",
+    "banned": false,
+    "money": 2000,
+    "role": "user"
+  }
+]
